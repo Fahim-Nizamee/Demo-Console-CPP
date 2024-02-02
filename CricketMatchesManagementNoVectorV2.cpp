@@ -1,60 +1,50 @@
 #include <iostream>
 #include <fstream>
+#include <conio.h>
 
 using namespace std;
 
-struct CricketPlayer
-{
+struct CricketPlayer {
     string playerName;
     string playerRole;
 };
 
-struct CricketTeam
-{
+struct CricketTeam {
     string teamName;
     string coachName;
     string captainName;
-    CricketPlayer players[11]; // Assuming each team has at most 11 players
+    CricketPlayer players[11];
     int numPlayers;
 };
 
-struct CricketMatch
-{
+struct CricketMatch {
     string team1;
     string team2;
     string venue;
     string date;
 };
 
-class CricketManagementSystem
-{
+class CricketManagementSystem {
 private:
-    CricketTeam teams[10]; // Assuming there are at most 10 teams
+    CricketTeam teams[10];
     int numTeams;
-    CricketMatch matches[10]; // Assuming there are at most 10 matches
+    CricketMatch matches[10];
     int numMatches;
 
 public:
-    bool isTeamExists(const string &teamName)
-    {
-        for (int i = 0; i < numTeams; ++i)
-        {
-            if (teams[i].teamName == teamName)
-            {
+    bool isTeamExists(const string &teamName) {
+        for (int i = 0; i < numTeams; ++i) {
+            if (teams[i].teamName == teamName) {
                 return true;
             }
         }
         return false;
     }
 
-    bool isPlayerExists(const string &playerName)
-    {
-        for (int i = 0; i < numTeams; ++i)
-        {
-            for (int j = 0; j < teams[i].numPlayers; ++j)
-            {
-                if (teams[i].players[j].playerName == playerName)
-                {
+    bool isPlayerExists(const string &playerName) {
+        for (int i = 0; i < numTeams; ++i) {
+            for (int j = 0; j < teams[i].numPlayers; ++j) {
+                if (teams[i].players[j].playerName == playerName) {
                     return true;
                 }
             }
@@ -62,14 +52,12 @@ public:
         return false;
     }
 
-    void addTeam()
-    {
+    void addTeam() {
         CricketTeam newTeam;
         cout << "\n\tEnter Team Name: ";
         getline(cin, newTeam.teamName);
 
-        while (isTeamExists(newTeam.teamName))
-        {
+        while (isTeamExists(newTeam.teamName)) {
             cout << "\tTeam with the same name already exists. Please choose a different name.\n";
             cout << "\tEnter Team Name: ";
             getline(cin, newTeam.teamName);
@@ -84,13 +72,11 @@ public:
         cin >> newTeam.numPlayers;
         cin.ignore();
 
-        for (int i = 0; i < newTeam.numPlayers; ++i)
-        {
+        for (int i = 0; i < newTeam.numPlayers; ++i) {
             cout << "\tEnter Player Name: ";
             getline(cin, newTeam.players[i].playerName);
 
-            while (isPlayerExists(newTeam.players[i].playerName))
-            {
+            while (isPlayerExists(newTeam.players[i].playerName)) {
                 cout << "\tPlayer with the same name already exists. Please choose a different name.\n";
                 cout << "\tEnter Player Name: ";
                 getline(cin, newTeam.players[i].playerName);
@@ -104,30 +90,25 @@ public:
         cout << "\n\tTeam added successfully!\n";
     }
 
-    void viewAllTeams()
-    {
+    void viewAllTeams() {
         cout << "\n\tAll Cricket Teams:\n";
-        for (int i = 0; i < numTeams; ++i)
-        {
+        for (int i = 0; i < numTeams; ++i) {
             cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
             cout << "\tTeam Name: " << teams[i].teamName << "\n\tCoach: " << teams[i].coachName << "\n\tCaptain: " << teams[i].captainName << endl;
             cout << "\n\tPlayers:\n";
-            for (int j = 0; j < teams[i].numPlayers; ++j)
-            {
+            for (int j = 0; j < teams[i].numPlayers; ++j) {
                 cout << "\tPlayer Name: " << teams[i].players[j].playerName << "\tRole: " << teams[i].players[j].playerRole << endl;
             }
             cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
         }
     }
 
-    void scheduleMatch()
-    {
+    void scheduleMatch() {
         CricketMatch newMatch;
         cout << "\n\tEnter Team 1: ";
         getline(cin, newMatch.team1);
 
-        while (!isTeamExists(newMatch.team1))
-        {
+        while (!isTeamExists(newMatch.team1)) {
             cout << "\tTeam 1 does not exist. Please enter a valid team name.\n";
             cout << "\tEnter Team 1: ";
             getline(cin, newMatch.team1);
@@ -136,8 +117,7 @@ public:
         cout << "\tEnter Team 2: ";
         getline(cin, newMatch.team2);
 
-        while (!isTeamExists(newMatch.team2) || newMatch.team1 == newMatch.team2)
-        {
+        while (!isTeamExists(newMatch.team2) || newMatch.team1 == newMatch.team2) {
             cout << "\tTeam 2 does not exist or cannot be the same as Team 1. Please enter a valid team name.\n";
             cout << "\tEnter Team 2: ";
             getline(cin, newMatch.team2);
@@ -152,11 +132,9 @@ public:
         cout << "\n\tCricket match scheduled successfully!\n";
     }
 
-    void viewSchedule()
-    {
+    void viewSchedule() {
         cout << "\n\tCricket Match Schedule:\n";
-        for (int i = 0; i < numMatches; ++i)
-        {
+        for (int i = 0; i < numMatches; ++i) {
             cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
             cout << "\t-===========================\n";
             cout << "\t" << matches[i].team1 << " Vs " << matches[i].team2 << endl;
@@ -166,24 +144,20 @@ public:
         }
     }
 
-    void saveTeamsPlayersDataToFile()
-    {
+    void saveTeamsPlayersDataToFile() {
         ofstream file("cricketTeamsPlayersData.txt");
-        if (file.fail())
-        {
+        if (file.fail()) {
             cout << "\n\tError saving cricket teams and players data to file.\n";
             return;
         }
 
-        for (int i = 0; i < numTeams; ++i)
-        {
+        for (int i = 0; i < numTeams; ++i) {
             file << teams[i].teamName << endl;
             file << teams[i].coachName << endl;
             file << teams[i].captainName << endl;
             file << teams[i].numPlayers << endl;
 
-            for (int j = 0; j < teams[i].numPlayers; ++j)
-            {
+            for (int j = 0; j < teams[i].numPlayers; ++j) {
                 file << teams[i].players[j].playerName << endl;
                 file << teams[i].players[j].playerRole << endl;
             }
@@ -192,18 +166,15 @@ public:
         file.close();
     }
 
-    void saveMatchScheduleDataToFile()
-    {
+    void saveMatchScheduleDataToFile() {
         ofstream file("cricketMatchScheduleData.txt");
-        if (file.fail())
-        {
+        if (file.fail()) {
             cout << "\n\tError saving cricket match schedule data to file.\n";
             return;
         }
 
         file << numMatches << endl;
-        for (int i = 0; i < numMatches; ++i)
-        {
+        for (int i = 0; i < numMatches; ++i) {
             file << matches[i].team1 << endl;
             file << matches[i].team2 << endl;
             file << matches[i].venue << endl;
@@ -213,11 +184,9 @@ public:
         file.close();
     }
 
-    void readTeamsPlayersDataFromFile()
-    {
+    void readTeamsPlayersDataFromFile() {
         ifstream file("cricketTeamsPlayersData.txt");
-        if (file.fail())
-        {
+        if (file.fail()) {
             return;
         }
 
@@ -225,16 +194,14 @@ public:
         CricketPlayer tempPlayer;
         int numPlayers;
 
-        while (getline(file, teams[numTeams].teamName))
-        {
+        while (getline(file, teams[numTeams].teamName)) {
             getline(file, teams[numTeams].coachName);
             getline(file, teams[numTeams].captainName);
             file >> numPlayers;
             file.ignore();
 
             teams[numTeams].numPlayers = numPlayers;
-            for (int i = 0; i < numPlayers; ++i)
-            {
+            for (int i = 0; i < numPlayers; ++i) {
                 getline(file, teams[numTeams].players[i].playerName);
                 getline(file, teams[numTeams].players[i].playerRole);
             }
@@ -245,11 +212,9 @@ public:
         file.close();
     }
 
-    void readMatchScheduleDataFromFile()
-    {
+    void readMatchScheduleDataFromFile() {
         ifstream file("cricketMatchScheduleData.txt");
-        if (file.fail())
-        {
+        if (file.fail()) {
             return;
         }
 
@@ -260,8 +225,7 @@ public:
         file >> tempNumMatches;
         file.ignore();
 
-        for (int i = 0; i < tempNumMatches; ++i)
-        {
+        for (int i = 0; i < tempNumMatches; ++i) {
             getline(file, tempMatch.team1);
             getline(file, tempMatch.team2);
             getline(file, tempMatch.venue);
@@ -275,70 +239,71 @@ public:
 
 CricketManagementSystem cricketSystem;
 
-void adminAccess()
-{
-    int choice;
-    while (1)
-    {
+int getMenuChoice(const string &menuTitle, const string options[], int numOptions) {
+    int selection = 0;
+
+    while (true) {
         system("cls");
-        cout << "\n\t>>>>>>>>>>>>>> Welcome to Cricket Matches Management System <<<<<<<<<<<<<<<\n\n";
 
-        if (cricketSystem.isTeamExists(""))
-        {
-            cout << "\tNo cricket teams found in the database. To unlock other options, please add a team first.\n";
-            cout << "\t1) Add a new cricket team\n";
-            cout << "\t2) Exit the application\n";
-            cout << "\n\tEnter your choice: ";
-            cin >> choice;
-            cin.ignore();
+        cout << "\n\t" << menuTitle << "\n\n";
 
-            switch (choice)
-            {
-            case 1:
-                cricketSystem.addTeam();
-                break;
-            case 2:
-                cricketSystem.saveTeamsPlayersDataToFile();
-                cricketSystem.saveMatchScheduleDataToFile();
-                return;
-            default:
-                cout << "\tInvalid choice. Please try again.\n";
-                break;
+        for (int i = 0; i < numOptions; ++i) {
+            if (i == selection) {
+                cout << "\t> " << options[i] << "\n";
+            } else {
+                cout << "\t  " << options[i] << "\n";
             }
         }
-        else
-        {
-            cout << "\t1) Add a new cricket team\n";
-            cout << "\t2) View all cricket teams\n";
-            cout << "\t3) Schedule a cricket match\n";
-            cout << "\t4) View cricket match schedule\n";
-            cout << "\t5) Exit the application\n";
-            cout << "\n\tEnter your choice: ";
-            cin >> choice;
-            cin.ignore();
 
-            switch (choice)
-            {
-            case 1:
+        int key = _getch();
+
+        switch (key) {
+            case 13: // Enter key
+                return selection;
+            case 72: // Arrow up
+                selection = (selection - 1 + numOptions) % numOptions;
+                break;
+            case 80: // Arrow down
+                selection = (selection + 1) % numOptions;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+void adminAccess() {
+    const int numAdminOptions = 5;
+    string adminOptions[numAdminOptions] = {
+        "Add a new cricket team",
+        "View all cricket teams",
+        "Schedule a cricket match",
+        "View cricket match schedule",
+        "Exit the application"
+    };
+
+    while (true) {
+        int choice = getMenuChoice("Welcome to Cricket Matches Management System", adminOptions, numAdminOptions);
+
+        switch (choice) {
+            case 0:
                 cricketSystem.addTeam();
                 break;
-            case 2:
+            case 1:
                 cricketSystem.viewAllTeams();
                 break;
-            case 3:
+            case 2:
                 cricketSystem.scheduleMatch();
                 break;
-            case 4:
+            case 3:
                 cricketSystem.viewSchedule();
                 break;
-            case 5:
+            case 4:
                 cricketSystem.saveTeamsPlayersDataToFile();
                 cricketSystem.saveMatchScheduleDataToFile();
                 return;
             default:
-                cout << "\tInvalid choice. Please try again.\n";
                 break;
-            }
         }
 
         cout << "\n\tPress enter to continue!";
@@ -346,8 +311,7 @@ void adminAccess()
     }
 }
 
-int main()
-{
+int main() {
     cricketSystem.readTeamsPlayersDataFromFile();
     cricketSystem.readMatchScheduleDataFromFile();
 
