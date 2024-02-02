@@ -94,13 +94,13 @@ public:
     void viewAllTeams() {
         cout << "\n\tAll Cricket Teams:\n";
         for (int i = 0; i < numTeams; ++i) {
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
+            cout << "\n\t======================================\n\n";
             cout << "\tTeam Name: " << teams[i].teamName << "\n\tCoach: " << teams[i].coachName << "\n\tCaptain: " << teams[i].captainName << endl;
             cout << "\n\tPlayers:\n";
             for (int j = 0; j < teams[i].numPlayers; ++j) {
-                cout << "\tPlayer Name: " << teams[i].players[j].playerName << "\tRole: " << teams[i].players[j].playerRole << endl;
+                cout << "\t"<< teams[i].players[j].playerRole<< " :" << "\t" << teams[i].players[j].playerName  << endl;
             }
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
+            cout << "\n\t======================================\n\n";
         }
     }
 

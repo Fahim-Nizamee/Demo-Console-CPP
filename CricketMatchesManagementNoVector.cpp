@@ -14,7 +14,7 @@ struct CricketTeam
     string teamName;
     string coachName;
     string captainName;
-    CricketPlayer players[11]; // Assuming each team has at most 11 players
+    CricketPlayer players[11]; 
     int numPlayers;
 };
 
@@ -29,9 +29,9 @@ struct CricketMatch
 class CricketManagementSystem
 {
 private:
-    CricketTeam teams[10]; // Assuming there are at most 10 teams
+    CricketTeam teams[10]; 
     int numTeams;
-    CricketMatch matches[10]; // Assuming there are at most 10 matches
+    CricketMatch matches[10]; 
     int numMatches;
 
 public:
@@ -109,14 +109,15 @@ public:
         cout << "\n\tAll Cricket Teams:\n";
         for (int i = 0; i < numTeams; ++i)
         {
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
+            cout << "\n\t======================================\n\n";
             cout << "\tTeam Name: " << teams[i].teamName << "\n\tCoach: " << teams[i].coachName << "\n\tCaptain: " << teams[i].captainName << endl;
             cout << "\n\tPlayers:\n";
             for (int j = 0; j < teams[i].numPlayers; ++j)
             {
-                cout << "\tPlayer Name: " << teams[i].players[j].playerName << "\tRole: " << teams[i].players[j].playerRole << endl;
+                cout << "\t" << teams[i].players[j].playerRole << " :"
+                     << "\t" << teams[i].players[j].playerName << endl;
             }
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
+            cout << "\n\t======================================\n\n";
         }
     }
 
@@ -157,12 +158,10 @@ public:
         cout << "\n\tCricket Match Schedule:\n";
         for (int i = 0; i < numMatches; ++i)
         {
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
-            cout << "\t-===========================\n";
-            cout << "\t" << matches[i].team1 << " Vs " << matches[i].team2 << endl;
-            cout << "\t````````````````````````````" << endl;
+            cout << "\n\t======================================\n\n";
+            cout << "\tTeam " << matches[i].team1 << " Vs Team " << matches[i].team2 << endl;
             cout << "\tVenue: " << matches[i].venue << " | Date: " << matches[i].date << endl;
-            cout << "\n\t||||||||||||||||||||||||||||||||||||||\n\n";
+            cout << "\n\t======================================\n\n";
         }
     }
 
