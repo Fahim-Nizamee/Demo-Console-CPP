@@ -280,7 +280,7 @@ void adminAccess()
     while (1)
     {
         system("cls");
-        cout << "\n\t>>>>>>>>>>>>>> Welcome to Cricket Matches Management System <<<<<<<<<<<<<<<\n\n";
+        cout << "\n\tCricket Matches Management\n\n";
 
         if (cricketSystem.isTeamExists(""))
         {

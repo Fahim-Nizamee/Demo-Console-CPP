@@ -92,6 +92,7 @@ void saveMenuInFile()
   file.close();
   return;
 }
+
 // to show the full menu list saved in menu array
 void showMenuItems()
 {
